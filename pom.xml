@@ -12,13 +12,13 @@
 
     <groupId>com.suchtool</groupId>
     <artifactId>nicelog-spring-boot-starter</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
 
     <packaging>jar</packaging>
     <name>nicelog-spring-boot-starter</name>
     <description>Collect log automatically for SpringBoot project</description>
 
-    <url>https://github.com/knife-blade/nicelog</url>
+    <url>https://github.com/knifeopen/nicelog</url>
 
     <dependencyManagement>
         <dependencies>
@@ -261,15 +261,15 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/knife-blade/nicelog</url>
-        <connection>https://github.com/knife-blade/nicelog.git</connection>
+        <url>https://github.com/knifeopen/nicelog</url>
+        <connection>https://github.com/knifeopen/nicelog.git</connection>
     </scm>
     <developers>
         <developer>
             <id>knifeout</id>
             <name>knifeout</name>
             <email>knife_out@163.com</email>
-            <url>https://github.com/knife-blade</url>
+            <url>https://github.com/knifeopen</url>
         </developer>
     </developers>
 </project>

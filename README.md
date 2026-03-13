@@ -123,7 +123,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomDetailProcessImpl extends NiceLogDetailProcessDefaultImpl {
+public class CustomNiceLogDetailProcessImpl extends NiceLogDetailProcessDefaultImpl {
     private final String KAFKA_LOG_TOPIC_PREFIX = "applog_";
 
     @Autowired
@@ -243,6 +243,22 @@ NiceLogUtil.createBuilder()
 ### 5.1 yml配置
 
 支持SpringBoot的配置文件进行配置，比如：application.yml。
+
+**最简配置**
+
+```yaml
+suchtool:
+  nicelog:
+    enabled: true
+    auto-collect: true
+    log-level: info
+    logback-enabled: true
+    #process:
+    #  enable-record-async: true
+    #  record-async-queue-capacity: 8000
+```
+
+**配置详解**
 
 | 配置 | 描述 | 默认值 | 是否支持动态配置 |
 |------|------|--------|------------------|
