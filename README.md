@@ -137,12 +137,33 @@ public class CustomNiceLogDetailProcessImpl extends NiceLogDetailProcessDefaultI
      */
     @Override
     public void preProcess(NiceLogInnerBO logInnerBO) {
-        // 这里可以修改字段，比如：
-        // UserDTO userDTO = UserUtil.currentUser();
-        // if (userDTO != null) {
-        //     logInnerBO.setOperatorId(userDTO.getUserId());
-        //     logInnerBO.setOperatorName(userDTO.getUserName());
+        // 这里可以修改字段等
+
+        try {
+           logInnerBO.setOther1(env);
+        } catch (Exception e) {
+           System.err.println("日志预处理报错：env赋值失败");
+           e.printStackTrace();
+        }
+
+        // try {
+        //    UserDTO userDTO = UserUtil.currentUser();
+        //    if (userDTO != null) {
+        //       logInnerBO.setOperatorId(userDTO.getUserId());
+        //       logInnerBO.setOperatorName(userDTO.getUserName());
+        //    }
+        // } catch (Exception e) {
+        //    System.err.println("日志预处理报错：用户获取失败");
+        //    e.printStackTrace();
         // }
+    }
+
+    /**
+     * 异步记录。这里发送到Kafka
+     */
+    @Override
+    public void recordAsync(NiceLogInnerBO logInnerBO) {
+       kafkaTemplate.send(KAFKA_LOG_TOPIC_PREFIX + env, JsonUtil.toJsonString(logInnerBO));
     }
 
     // 同步记录。这里不重写，用默认的即可
@@ -157,13 +178,7 @@ public class CustomNiceLogDetailProcessImpl extends NiceLogDetailProcessDefaultI
     //     }
     // }
 
-    /**
-     * 异步记录。这里发送到Kafka
-     */
-    @Override
-    public void recordAsync(NiceLogInnerBO logInnerBO) {
-        kafkaTemplate.send(KAFKA_LOG_TOPIC_PREFIX + env, JsonUtil.toJsonString(logInnerBO));
-    }
+
 }
 
 ```

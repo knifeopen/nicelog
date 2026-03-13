@@ -14,6 +14,15 @@ public class NiceLogServletUtilJavax {
 
     private final NiceLogProperty niceLogProperty;
 
+    public boolean inServletEnvironment() {
+        try {
+            httpServletRequest.getServletContext();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public String readTraceIdFromHeader() {
         return httpServletRequest.getHeader(niceLogProperty.getFeignTraceIdRequestHeader());
     }

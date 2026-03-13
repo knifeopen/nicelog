@@ -15,11 +15,11 @@ public class NiceLogServletUtil {
     private NiceLogServletUtilJakarta niceLogServletUtilJakarta;
 
     public String readTraceIdFromHeader() {
-        if (niceLogServletUtilJavax != null) {
+        if (javaxProcessRequired()) {
             return niceLogServletUtilJavax.readTraceIdFromHeader();
         }
 
-        if (niceLogServletUtilJakarta != null) {
+        if (jakartaProcessRequired()) {
             return niceLogServletUtilJakarta.readTraceIdFromHeader();
         }
 
@@ -27,11 +27,11 @@ public class NiceLogServletUtil {
     }
 
     public Map<String, String> buildRequestHeaders() {
-        if (niceLogServletUtilJavax != null) {
+        if (jakartaProcessRequired()) {
             return niceLogServletUtilJavax.buildRequestHeaders();
         }
 
-        if (niceLogServletUtilJakarta != null) {
+        if (jakartaProcessRequired()) {
             return niceLogServletUtilJakarta.buildRequestHeaders();
         }
 
@@ -39,14 +39,24 @@ public class NiceLogServletUtil {
     }
 
     public Map<String, String> buildResponseHeaders() {
-        if (niceLogServletUtilJavax != null) {
+        if (jakartaProcessRequired()) {
             return niceLogServletUtilJavax.buildResponseHeaders();
         }
 
-        if (niceLogServletUtilJakarta != null) {
+        if (jakartaProcessRequired()) {
             return niceLogServletUtilJakarta.buildResponseHeaders();
         }
 
         return null;
+    }
+
+    private boolean javaxProcessRequired() {
+        return niceLogServletUtilJavax != null
+                && niceLogServletUtilJavax.inServletEnvironment();
+    }
+
+    private boolean jakartaProcessRequired() {
+        return niceLogServletUtilJakarta != null
+                && niceLogServletUtilJakarta.inServletEnvironment();
     }
 }
