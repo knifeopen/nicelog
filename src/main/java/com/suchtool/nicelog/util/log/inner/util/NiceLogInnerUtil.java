@@ -70,6 +70,7 @@ public class NiceLogInnerUtil {
                 niceLogProperty = context.getBean(NiceLogProperty.class);
                 logTimeFormatter = DateTimeFormatter.ofPattern(niceLogProperty.getLogTimePattern());
 
+                log.info("nicelog config success");
                 return true;
             }
         }

@@ -4,10 +4,12 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import com.suchtool.nicelog.enhance.logback.NiceLogLogbackAppender;
 import com.suchtool.nicelog.property.NiceLogProperty;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
+@Slf4j
 public class NiceLogApplicationRunner implements ApplicationRunner {
     private final NiceLogProperty niceLogProperty;
 
@@ -17,8 +19,15 @@ public class NiceLogApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        if (Boolean.TRUE.equals(niceLogProperty.getLogbackEnabled())) {
-            addLogbackAppender();
+        try {
+            log.info("nicelog runner run");
+
+            if (Boolean.TRUE.equals(niceLogProperty.getLogbackEnabled())) {
+                addLogbackAppender();
+            }
+        } catch (Throwable t) {
+            System.err.println("nicelog runner error");
+            t.printStackTrace();
         }
     }
 
@@ -37,5 +46,4 @@ public class NiceLogApplicationRunner implements ApplicationRunner {
             t.printStackTrace();
         }
     }
-
 }
