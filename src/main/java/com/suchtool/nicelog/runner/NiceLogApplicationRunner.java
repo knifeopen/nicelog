@@ -20,14 +20,15 @@ public class NiceLogApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         try {
-            log.info("nicelog runner run");
+            log.info("nicelog runner start");
 
             if (Boolean.TRUE.equals(niceLogProperty.getLogbackEnabled())) {
                 addLogbackAppender();
             }
+
+            log.info("nicelog runner end");
         } catch (Throwable t) {
-            System.err.println("nicelog runner error");
-            t.printStackTrace();
+            log.error("nicelog runner error", t);
         }
     }
 
@@ -42,8 +43,7 @@ public class NiceLogApplicationRunner implements ApplicationRunner {
             Logger rootLogger = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME);
             rootLogger.addAppender(appender);
         } catch (Throwable t) {
-            System.err.println("nicelog addLogbackAppender error");
-            t.printStackTrace();
+            log.error("nicelog addLogbackAppender error", t);
         }
     }
 }
